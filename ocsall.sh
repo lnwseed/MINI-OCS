@@ -125,23 +125,14 @@ read -n1 -r -p "กดปุ่ม Enter เพื่อดำเนินกา
 apt-get remove --purge mysql\*
 dpkg -l | grep -i mysql
 apt-get clean
-
 apt-get install -y libmysqlclient-dev mysql-client
-
 service nginx stop
 service php5-fpm stop
 service php5-cli stop
-
 apt-get -y --purge remove nginx php5-fpm php5-cli
-
-#apt-get update
 apt-get update -y
-
 apt-get install build-essential expect -y
-
 apt-get install -y mysql-server
-
-#mysql_secure_installation
 so1=$(expect -c "
 spawn mysql_secure_installation; sleep 3
 expect \"\";  sleep 3; send \"\r\"
@@ -154,62 +145,33 @@ expect \"\";  sleep 3; send \"Y\r\"
 expect \"\";  sleep 3; send \"Y\r\"
 expect eof; ")
 echo "$so1"
-#\r
-#Y
-#pass
-#pass
-#Y
-#Y
-#Y
-#Y
-
 chown -R mysql:mysql /var/lib/mysql/
 chmod -R 755 /var/lib/mysql/
-
 apt-get install -y nginx php5 php5-fpm php5-cli php5-mysql php5-mcrypt
-
-
-# Install Web Server
 cd
 rm /etc/nginx/sites-enabled/default
 rm /etc/nginx/sites-available/default
-
 wget -O /etc/nginx/nginx.conf "https://raw.githubusercontent.com/rasta-team/MyVPS/master/nginx.conf"
 wget -O /etc/nginx/conf.d/vps.conf "https://raw.githubusercontent.com/rasta-team/MyVPS/master/vps.conf"
 sed -i 's/cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/g' /etc/php5/fpm/php.ini
 sed -i 's/listen = \/var\/run\/php5-fpm.sock/listen = 127.0.0.1:9000/g' /etc/php5/fpm/pool.d/www.conf
-
 mkdir -p /home/vps/public_html
-
 useradd -m vps
-
 mkdir -p /home/vps/public_html
 echo "<?php phpinfo() ?>" > /home/vps/public_html/info.php
 chown -R www-data:www-data /home/vps/public_html
 chmod -R g+rw /home/vps/public_html
-
 service php5-fpm restart
 service nginx restart
-
 apt-get -y install zip unzip
-
 cd /home/vps/public_html
-
 wget http://xn--l3clxf6cwbe0gd7j.com/panelocs.zip
-#wget https://github.com/rasta-team/Full-OCS/raw/master/panelocs.zip
-
 mv panelocs.zip LTEOCS.zip
-
 unzip LTEOCS.zip
-
 rm -f LTEOCS.zip
-
 rm -f index.html
-
 chown -R www-data:www-data /home/vps/public_html
 chmod -R g+rw /home/vps/public_html
-
-#mysql -u root -p
 so2=$(expect -c "
 spawn mysql -u root -p; sleep 3
 expect \"\";  sleep 3; send \"$DatabasePass\r\"
@@ -217,8 +179,6 @@ expect \"\";  sleep 3; send \"CREATE DATABASE IF NOT EXISTS $DatabaseName;EXIT;\
 expect eof; ")
 echo "$so2"
 #pass
-#CREATE DATABASE IF NOT EXISTS OCS_PANEL;EXIT;
-
 chmod 777 /home/vps/public_html/application/controllers/topup/wallet/cookie.txt
 chmod 777 /home/vps/public_html/application/config/database.php
 chmod 755 /home/vps/public_html/application/controllers/topup/wallet/config.php
@@ -229,18 +189,7 @@ chmod 755 /home/vps/public_html/topup/get.php
 chmod 755 /home/vps/public_html/topup/index.php
 chmod 755 /home/vps/public_html/topup/input.php
 
-
 clear
-echo "
-----------------------------------------------
-[√] Server : มาถึงขั้นตอนสุดท้ายแล้ว 
-[√] Connect...
-[√] Wellcome : กรุณาทำตามขั้นตอน... [ OK !! ]
-----------------------------------------------
-[√] เปิดเบราว์เซอร์ http://$MYIP:81/install
-[√] และกรอกข้อมูลตามด้านล่าง !
-----------------------------------------------
- " | lolcat
 echo ""
 echo "Database:"
 echo "- Database Host: localhost"
@@ -259,50 +208,22 @@ echo "
 [√] แล้วกด [ENTER] !
 ----------------------------------------------
  " | lolcat
- 
-sleep 3
-echo ""
-read -p "หากขั้นตอนข้างต้นเสร็จสิ้นโปรดกดปุ่ม [Enter] เพื่อดำเนินการต่อ ..."
 echo ""
 read -p "หาก [ พี่เทพ ] มั่นใขว่าขั้นตอนข้างต้นได้ทำเสร็จแล้วโปรดกดปุ่ม [Enter] เพื่อดำเนินการต่อ ..."
 echo ""
-
 cd /root
-
 apt-get update
-
 service webmin restart
-
 apt-get -y --force-yes -f install libxml-parser-perl
-
 echo "unset HISTFILE" >> /etc/profile
-
-sleep 5
-echo "กรุณาตั้งค่า ระบบเติมเงิน หมายเลขอ้างอิงวอลเลต"
-
-sleep 5
-nano /home/vps/public_html/application/controllers/topup/wallet/config.php
-
 sleep 2
 cd /home/vps/public_html/
 rm -rf install
-
-sleep 3
-clear
-echo "
-----------------------------------------------
-[√] Source : Ocspanel.info 
-[√] ขั้นตอนต่อไปนี้ให้ท่านตอบ..Y
-[√] กำลังเริ่มติดตั้ง : Wallet..... [ OK !! ]
-----------------------------------------------
- "
 sudo apt-get install curl
 sudo service apache2 restart
 sudo apt-get install php5-curl
 sudo service apache2 restart
-
 sleep 4
-# info
 clear
 echo "
 ----------------------------------------------
