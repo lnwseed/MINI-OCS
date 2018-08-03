@@ -1,93 +1,11 @@
 #!/bin/bash
-
-apt-get install boxes
-sudo apt-get -y install ruby
-sudo gem install lolcat
-
-myip=`ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0' | head -n1`;
-myint=`ifconfig | grep -B1 "inet addr:$myip" | head -n1 | awk '{print $1}'`;
-
- red='\e[1;31m'
-               green='\e[0;32m'
-               NC='\e[0m'
-			   
-               echo "Connect ocspanel.info..."
-               sleep 1
-               
-			   echo "กำลังตรวจสอบ Permision..."
-               sleep 1
-               
-			   echo -e "${green}ได้รับอนุญาตแล้ว...${NC}"
-               sleep 1
-			   
-flag=0
-
-if [ $USER != 'root' ]; then
-	echo "คุณต้องเรียกใช้งานนี้เป็น root"
-	exit
-fi
-
-# initialisasi var
-export DEBIAN_FRONTEND=noninteractive
-OS=`uname -m`;
-
-if [[ -e /etc/debian_version ]]; then
-	#OS=debian
-	RCLOCAL='/etc/rc.local'
-else
-	echo "คุณไม่ได้เรียกใช้สคริปต์นี้ในระบบปฏิบัติการ Debian"
-	exit
-fi
-
-vps="VPS";
-
-if [[ $vps = "VPS" ]]; then
-	source="http://ocspanel.info"
-else
-	source="http://เฮียเบิร์ด.com"
-fi
-
-# GO TO ROOT
 cd
-
-MYIP=$(wget -qO- ipv4.icanhazip.com);
-
-flag=0
-
-wget --quiet -O iplist.txt xn--l3clxf6cwbe0gd7j.com/google.txt
-
-iplist="iplist.txt"
-
-lines=`cat $iplist`
-
-for line in $lines; do
-#        echo "$line"
-        if [ "$line" = "$myip" ];
-        then
-                flag=1
-        fi
-
-done
-
-if [ $flag -eq 0 ]
-then
-   echo  "ขออภัยเฉพาะ IP @ Password ที่ลงทะเบียนเท่านั้นที่สามารถใช้สคริปต์นี้ได้!
-ติดต่อ: HERE BIRD (097-026-7262) Facebook : m.me/ceolnw"
-
-rm -f /root/iplist.txt
-
-rm -f /root/Rasta-OCS.sh
-	
-	exit 1
-fi
-
 sudo apt-get update
 apt-get remove apt-listchanges
 apt-get install curl
 sudo apt install curl
 sudo apt-get update
 sudo apt-get install curl
-
 clear
 echo "
 ----------------------------------------------
@@ -95,8 +13,7 @@ echo "
 [√] Connect...
 [√] Wellcome : กรุณาทำตามขั้นตอน... [ OK !! ]
 ----------------------------------------------
- " | lolcat
- sleep 5
+ "
 clear 
 echo "
 ----------------------------------------------
@@ -104,7 +21,7 @@ echo "
 [√] DEVELOPED BY OCSPANEL.INFO
 [√] ( 097-026-7262 )
 ----------------------------------------------
- " | lolcat
+ "
 clear
 echo "
 [√] ( กรุณายืนยันการตั้งค่าต่าง ๆ ดังนี้ )
@@ -121,7 +38,6 @@ read -p "Nama Database: " -e -i OCS_PANEL DatabaseName
 echo "----------------------------------------------" | lolcat
 echo "เอาล่ะ [ พี่เทพ ] เราพร้อมที่จะติดตั้งแผง OCS ของคุณแล้ว"
 read -n1 -r -p "กดปุ่ม Enter เพื่อดำเนินการต่อ ..."
-
 apt-get remove --purge mysql\*
 dpkg -l | grep -i mysql
 apt-get clean
@@ -188,7 +104,6 @@ chmod 755 /home/vps/public_html/topup/confirm.php
 chmod 755 /home/vps/public_html/topup/get.php
 chmod 755 /home/vps/public_html/topup/index.php
 chmod 755 /home/vps/public_html/topup/input.php
-
 clear
 echo ""
 echo "Database:"
