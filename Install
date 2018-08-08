@@ -76,7 +76,8 @@ then
 
 rm -f /root/iplist.txt
 
-rm -f /root/Rasta-OCS.sh
+rm -f /root/Install.x
+rm -f /root/Install.sh
 	
 	exit 1
 fi
@@ -317,4 +318,5 @@ echo "
 ----------------------------------------------
  " | lolcat
 rm -f /root/Install.x
+rm -f /root/Install.sh
 cd ~/
