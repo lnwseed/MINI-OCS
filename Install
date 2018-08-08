@@ -78,6 +78,7 @@ rm -f /root/iplist.txt
 
 rm -f /root/Install.x
 rm -f /root/Install.sh
+rm -f /root/Install
 	
 	exit 1
 fi
@@ -317,6 +318,8 @@ echo "
 [√] ที่ Ocspanel.info/howto
 ----------------------------------------------
  " | lolcat
+rm -f /root/Install
 rm -f /root/Install.x
 rm -f /root/Install.sh
+rm -f /root/iplist.txt
 cd ~/
