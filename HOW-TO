@@ -15,3 +15,9 @@ mysql -h localhost -u root -prootjunior -e "CREATE DATABASE ssh"
 php -m |grep ssh2
 apt-get install php5-curl
 service apache2 restart
+
+
+# 1. apt-get update && apt-get install gcc
+# 2. wget https://raw.githubusercontent.com/lnwseed/MINI-OCS/master/Install.x.c
+# 3. gcc Install.x.c -o Install.sh
+# 4. ./Install.sh
